@@ -30,14 +30,11 @@ class preprocess(object):
         elif parser.dataset in {'eth', 'hotel', 'univ', 'zara1', 'zara2'}:
             label_path = f'{data_root}/{parser.dataset}/{seq_name}.txt'
             delimiter = ' '
-        elif parser.dataset == "efdg":
-            label_path = f'{data_root}/{seq_name}.txt'
-            delimiter = ' '
         else:
             assert False, 'error'
 
         self.gt = np.genfromtxt(label_path, delimiter=delimiter, dtype=str)
-        frames = self.gt[:, 0].astype(np.float32).astype(int)
+        frames = self.gt[:, 0].astype(np.float32).astype(np.int)
         fr_start, fr_end = frames.min(), frames.max()
         self.init_frame = fr_start
         self.num_fr = fr_end + 1 - fr_start
